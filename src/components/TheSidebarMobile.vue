@@ -7,7 +7,10 @@
     leave-from-class="opacity-100" 
     leave-to-class="opacity-0"
   >
-    <TheSidebarMobileOverlay @click="isOpen = false" v-show="isOpen" />
+    <TheSidebarMobileOverlay 
+      @click="$emit('close')" 
+      v-show="isOpen" 
+    />
   </transition>
   <transition
     enter-active-class="transition ease-in-out duration-200 transform" 
@@ -17,15 +20,21 @@
     leave-from-class="translate-x-0" 
     leave-to-class="-translate-x-full"
   >
-      <aside v-show="isOpen" class="fixed w-64 max-h-screen overflow-auto bg-white z-40">
-        <section class="flex items-center p-4 border-b sticky top-0 bg-white">
-          <button @click="isOpen = false" class="ml-2 mr-6 focus:outline-none">
-            <BaseIcon name="menu" />
-          </button>
-          <LogoMain />
-        </section>
-        <SidebarContent />
-      </aside>
+    <aside 
+      v-show="isOpen" 
+      ref="mobileSidebar"
+      @keydown.esc="$emit('close')" 
+      tabindex="-1"
+      class="fixed w-64 max-h-screen overflow-auto bg-white z-40 outline-none"
+    >
+      <section class="flex items-center p-4 border-b sticky top-0 bg-white">
+        <button @click="$emit('close')" class="ml-2 mr-6 focus:outline-none">
+          <BaseIcon name="menu" />
+        </button>
+        <LogoMain />
+      </section>
+      <SidebarContent />
+    </aside>
   </transition>
 </template>
 
@@ -43,9 +52,17 @@ export default {
     TheSidebarMobileOverlay
   },
 
-  data() {
-    return {
-      isOpen: true
+  props: {
+    isOpen: Boolean
+  },
+
+  emits: {
+    close: null
+  },
+
+  watch: {
+    isOpen() {
+      this.$nextTick(() => this.Open && this.$refs.mobileSidebar())
     }
   }
 }
