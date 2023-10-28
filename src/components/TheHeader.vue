@@ -2,7 +2,10 @@
   <header class="flex justify-between fixed top-0 z-30 w-full">
     <div class="lg:w-1/4 flex">
       <div class="flex items-center xl:w-64 xl:bg-white pl-4">
-        <button @click="$emit('openMobileSidebar')" class="mr-3 sm:ml-2 sm:mr-6 focus:outline-none">
+        <button
+          @click="$emit('toggleSidebar')"
+          class="mr-3 sm:ml-2 sm:mr-6 focus:outline-none"
+        >
           <BaseIcon name="menu" />
         </button>
         <LogoMain />
@@ -27,11 +30,11 @@
       </button>
       <button class="relative group p-2 focus:outline-none">
         <BaseIcon name="viewGrid" class="w-5 h-5" />
-        <TheDropdownApps/>
+        <TheDropdownApps />
       </button>
       <button class="relative group p-2 focus:outline-none">
         <BaseIcon name="dotsVertical" class="w-5 h-5" />
-        <TheDropdownSettings/>
+        <TheDropdownSettings />
       </button>
       <ButtonLogin />
     </div>
@@ -39,12 +42,12 @@
 </template>
 
 <script>
-import BaseIcon from './BaseIcon.vue';
-import LogoMain from './LogoMain.vue';
-import ButtonLogin from './ButtonLogin.vue';
-import TheSearch from './TheSearch.vue';
-import TheDropdownApps from './TheDropdownApps.vue';
-import TheDropdownSettings from './TheDropdownSettings.vue';
+import BaseIcon from './BaseIcon.vue'
+import LogoMain from './LogoMain.vue'
+import ButtonLogin from './ButtonLogin.vue'
+import TheSearch from './TheSearch.vue'
+import TheDropdownApps from './TheDropdownApps.vue'
+import TheDropdownSettings from './TheDropdownSettings.vue'
 
 export default {
   components: {
@@ -53,11 +56,11 @@ export default {
     ButtonLogin,
     TheSearch,
     TheDropdownApps,
-    TheDropdownSettings,
+    TheDropdownSettings
   },
 
   emits: {
-    openMobileSidebar: null
+    toggleSidebar: null
   }
 }
 </script>

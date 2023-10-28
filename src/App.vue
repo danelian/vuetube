@@ -1,10 +1,10 @@
 <script>
-import TheHeader from './components/TheHeader.vue';
-import TheSidebarSmall from './components/TheSidebarSmall.vue';
-import TheSidebar from './components/TheSidebar.vue';
-import TheSidebarMobile from './components/TheSidebarMobile.vue';
-import TheCategories from './components/TheCategories.vue';
-import TheVideos from './components/TheVideos.vue';
+import TheHeader from './components/TheHeader.vue'
+import TheSidebarSmall from './components/TheSidebarSmall.vue'
+import TheSidebar from './components/TheSidebar.vue'
+import TheSidebarMobile from './components/TheSidebarMobile.vue'
+import TheCategories from './components/TheCategories.vue'
+import TheVideos from './components/TheVideos.vue'
 
 export default {
   components: {
@@ -16,18 +16,38 @@ export default {
     TheVideos
   },
 
-  data() {
+  data () {
     return {
-      isMobileSidebarOpen: false
+      isMobileSidebarOpen: false,
+      sidebarState: null
+    }
+  },
+
+  mounted () {
+    if (window.innerWidth >= 768 && window.innerWidth < 1280) {
+      this.sidebarState = 'compact'
+    }
+
+    if (window.innerWidth >= 1280) {
+      this.sidebarState = 'normal'
     }
   },
 
   methods: {
-    openMobileSidebar() {
+    toggleSidebar () {
+      if (window.innerWidth >= 1280) {
+        this.sidebarState =
+          this.sidebarState === 'normal' ? 'compact' : 'normal'
+      } else {
+        this.openMobileSidebar()
+      }
+    },
+
+    openMobileSidebar () {
       this.isMobileSidebarOpen = true
     },
 
-    closeMobileSidebar() {
+    closeMobileSidebar () {
       this.isMobileSidebarOpen = false
     }
   }
@@ -35,13 +55,13 @@ export default {
 </script>
 
 <template>
-  <TheHeader @open-mobile-sidebar="openMobileSidebar" />
-  <TheSidebarSmall/>
-  <TheSidebar/>
-  <TheSidebarMobile 
+  <TheHeader @toggle-sidebar="toggleSidebar" />
+  <TheSidebarSmall :is-open="sidebarState === 'compact'" />
+  <TheSidebar :is-open="sidebarState === 'normal'" />
+  <TheSidebarMobile
     :is-open="isMobileSidebarOpen"
     @close="closeMobileSidebar"
   />
-  <TheCategories/>
-  <TheVideos/>
+  <TheCategories :is-sidebar-open="sidebarState === 'normal'" />
+  <TheVideos :is-sidebar-open="sidebarState === 'normal'" />
 </template>
