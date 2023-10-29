@@ -75,12 +75,13 @@ export default {
       return [
         'absolute', 
         // 'top-9', 
-        '-right-full', 
-        'sm:right-0', 
+        // '-right-full', 
+        // 'sm:right-0', 
         'bg-white', 
         'w-48', 
         'rounded', 
         'shadow', 
+        'z-10',
         'focus:outline-none',
         ...this.positionClasses
       ]
@@ -109,8 +110,8 @@ export default {
     getPositionClasses(event) {
       return [
         this.getTopClass(event),
-        this.getRightClass(),
-        this.getLeftClass()
+        this.getRightClass(event),
+        this.getLeftClass(event)
       ]
     },
 
@@ -130,12 +131,48 @@ export default {
       return 'top-9'
     },
 
-    getRightClass() {
+    getRightClass(event) {
+      const clickCoordX = event.clientX
+      const clickCoordY = event.clientY
+      const dropdownWidth = this.$refs.dropdown.offsetWidth
+      const dropdownHeight = this.$refs.dropdown.offsetHeight
+      const buttonHeight = event.currentTarget.offsetHeight
 
+      if (window.innerWidth - clickCoordX > dropdownWidth) {
+        return 'right-auto'
+      }
+
+      if (window.innerHeight - clickCoordY > dropdownHeight + buttonHeight) {
+        return 'right-0'
+      }
+
+      if (window.innerHeight - clickCoordY > dropdownHeight) {
+        return 'right-8'
+      }
+
+      return 'right-0'
     },
 
-    getLeftClass() {
+    getLeftClass(event) {
+      const clickCoordX = event.clientX
+      const clickCoordY = event.clientY
+      const buttonHeight = event.currentTarget.offsetHeight
+      const dropdownWidth = this.$refs.dropdown.offsetWidth
+      const dropdownHeight = this.$refs.dropdown.offsetHeight
 
+      if (window.innerWidth - clickCoordX < dropdownWidth) {
+        return 'left-auto'
+      }
+
+      if (window.innerHeight - clickCoordY < dropdownHeight) {
+        return 'left-auto'
+      }
+
+      if (window.innerHeight - clickCoordY > dropdownHeight + buttonHeight) {
+        return 'left-auto'
+      }
+
+      return 'left-8'
     }
   }
 }
