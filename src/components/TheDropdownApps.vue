@@ -18,7 +18,7 @@
         ref="dropdown"
         @keydown.esc="isOpen = false"
         tabindex="-1"
-        class="group-hover:visible absolute top-9 right-0 sm:left-0 bg-white w-60 border border-t-0 focus:outline-none"
+        :class="dropdownClasses"
       >
         <section class="py-2 border-b">
           <ul>
@@ -56,7 +56,20 @@ export default {
 
   data () {
     return {
-      isOpen: false
+      isOpen: false,
+      dropdownClasses: [
+        'group-hover:visible', 
+        'absolute', 
+        'top-9', 
+        'right-0', 
+        'sm:left-0', 
+        'bg-white', 
+        'w-60', 
+        'border', 
+        'border-t-0', 
+        'focus:outline-none', 
+        'z-10',
+      ]
     }
   },
 

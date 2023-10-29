@@ -1,14 +1,19 @@
 <template>
   <div class="relative">
-    <div class="h-full" @mouseenter="toggle" @mouseleave="toggle">
+    <div
+      class="flex items-center h-full"
+      @mouseenter="isShown = true"
+      @mouseleave="isShown = false"
+      @click="isShown = false"
+    >
       <slot />
     </div>
     <transition
-      enter-active-class="duration-200" 
-      enter-from-class="opacity-0" 
-      enter-to-class="opacity-100" 
-      leave-active-class="duration-75" 
-      leave-from-class="opacity-100" 
+      enter-active-class="duration-200"
+      enter-from-class="opacity-0"
+      enter-to-class="opacity-100"
+      leave-active-class="duration-75"
+      leave-from-class="opacity-100"
       leave-to-class="opacity-0"
     >
       <div v-show="isShown" :class="classes">{{ text }}</div>
@@ -19,17 +24,18 @@
 <script>
 export default {
   props: {
-    text: String
+    text: String,
+    top: Boolean
   },
 
-  data() {
+  data () {
     return {
       isShown: false
     }
   },
 
   computed: {
-    classes() {
+    classes () {
       return [
         'bg-gray-600',
         'bg-opacity-60',
@@ -38,19 +44,14 @@ export default {
         'text-sm',
         'whitespace-nowrap',
         'p-2',
-        'absolute',
-        'top-14',
-        'left-1/2',
         'transform',
-        '-translate-x-1/2'
+        '-translate-x-1/2',
+        'absolute',
+        'left-1/2',
+        this.top ? 'bottom-12' : 'top-14'
       ]
     }
   },
 
-  methods: {
-    toggle() {
-      this.isShown = !this.isShown
-    }
-  }
 }
 </script>
