@@ -1,6 +1,7 @@
 <template>
   <div class="relative">
-    <img :src="`/channel-${index}.jpg`" />
+    <!-- <img :src="`/channel-${index}.jpg`" /> -->
+    <img src="/channel-1.jpg" alt="">
     <VideoItemThumbnailButton icon="clock" label="Whatch later" class="top-0" />
     <VideoItemThumbnailButton icon="menuAlt3" label="Add to queue" class="top-8" />
     <span

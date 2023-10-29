@@ -1,8 +1,8 @@
 <template>
   <div class="relative -mt-1 ml-auto">
     <button
-      @click="isOpen = !isOpen"
-      class="-mt-1 ml-auto p-1 opacity-0 group-hover:opacity-100 text-gray-500 hover:text-gray-700 focus:outline-none"
+      @click="toggle"
+      :class="buttonClasses"
     >
       <BaseIcon name="dotsVertical" />
     </button>
@@ -19,7 +19,7 @@
         ref="dropdown"
         @keydown.esc="isOpen = false"
         tabindex="-1"
-        class="absolute top-9 -right-full sm:right-0 bg-white w-48 rounded shadow focus:outline-none"
+        :class="dropdownClasses"
       >
         <section class="py-2">
           <ul>
@@ -47,6 +47,7 @@ export default {
   data() {
     return {
       isOpen: false,
+      positionClasses: []
     }
   },
 
@@ -56,12 +57,86 @@ export default {
     }
   },
 
+  computed: {
+    buttonClasses() {
+      return [
+        '-mt-1', 
+        'ml-auto', 
+        'p-1', 
+        'opacity-0', 
+        'group-hover:opacity-100', 
+        'text-gray-500', 
+        'hover:text-gray-700', 
+        'focus:outline-none',
+      ]
+    },
+
+    dropdownClasses() {
+      return [
+        'absolute', 
+        // 'top-9', 
+        '-right-full', 
+        'sm:right-0', 
+        'bg-white', 
+        'w-48', 
+        'rounded', 
+        'shadow', 
+        'focus:outline-none',
+        ...this.positionClasses
+      ]
+    }
+  },
+
   mounted() {
     window.addEventListener('click', event => {
       if(!this.$el.contains(event.target)) {
         this.isOpen = false
       }
     })
+  },
+
+  methods: {
+    toggle(event) {
+      this.isOpen = !this.isOpen
+
+      if (this.isOpen) {
+        this.$nextTick(() => {
+          this.positionClasses = this.getPositionClasses(event)
+        })
+      }
+    },
+
+    getPositionClasses(event) {
+      return [
+        this.getTopClass(event),
+        this.getRightClass(),
+        this.getLeftClass()
+      ]
+    },
+
+    getTopClass(event) {
+      const clickCoordY = event.clientY
+      const buttonHeight = event.currentTarget.offsetHeight
+      const dropdownHeight = this.$refs.dropdown.offsetHeight
+
+      if (window.innerHeight - clickCoordY < dropdownHeight) {
+        return '-top-14'
+      }
+
+      if (window.innerHeight - clickCoordY < dropdownHeight + buttonHeight) {
+        return 'top-0'
+      }
+
+      return 'top-9'
+    },
+
+    getRightClass() {
+
+    },
+
+    getLeftClass() {
+
+    }
   }
 }
 </script>
