@@ -60,7 +60,7 @@ export default {
         return [topClass, 'right-0']
       }
 
-      return [topClass, 'left-1/2', '-translate-1/2']
+      return [topClass, 'left-1/2', '-translate-x-1/2']
     }
   }
 
