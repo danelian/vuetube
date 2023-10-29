@@ -1,9 +1,9 @@
 <template>
   <div
-    class="fixed bg-white w-full h-14 p-3 z-10 flex"
+    class="absolute w-full p-2 z-10 flex"
   >
-    <BaseTooltip @click="$emit('close')" text="Back" right>
-      <button class="mr-2 p-2 focus:outline-none">
+    <BaseTooltip text="Back" right>
+      <button @click="$emit('close')" class="mr-2 p-2 focus:outline-none">
         <BaseIcon name="arrowLeft" class="w-5 h-5" />
       </button>
     </BaseTooltip>
