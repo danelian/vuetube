@@ -1,9 +1,11 @@
 <template>
   <div class="relative">
-    <button @click="isOpen = !isOpen" class="relative p-2 focus:outline-none">
-      <BaseIcon name="viewGrid" class="w-5 h-5" />
-    </button>
-    <transition 
+    <BaseTooltip text="Youtube apps">
+      <button @click="isOpen = !isOpen" class="relative p-2 focus:outline-none">
+        <BaseIcon name="viewGrid" class="w-5 h-5" />
+      </button>
+    </BaseTooltip>
+    <transition
       enter-active-class="transition ease-out duration-100"
       enter-from-class="transition opacity-0 scale-95"
       enter-to-class="transform opacity-100 scale-100"
@@ -41,16 +43,18 @@
 </template>
 
 <script>
-import BaseIcon from './BaseIcon.vue';
-import DropdownAppsListItem from './DropdownAppsListItem.vue';
+import BaseIcon from './BaseIcon.vue'
+import BaseTooltip from './BaseTooltip.vue'
+import DropdownAppsListItem from './DropdownAppsListItem.vue'
 
 export default {
   components: {
     BaseIcon,
-    DropdownAppsListItem,
+    BaseTooltip,
+    DropdownAppsListItem
   },
 
-  data() {
+  data () {
     return {
       isOpen: false
     }
@@ -64,10 +68,10 @@ export default {
 
   mounted () {
     window.addEventListener('click', event => {
-      if(!this.$el.contains(event.target)) {
+      if (!this.$el.contains(event.target)) {
         this.isOpen = false
       }
     })
-  },
+  }
 }
 </script>
