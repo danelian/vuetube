@@ -1,6 +1,9 @@
 <template>
   <section class="flex border-b border-gray-200 text-black">
-    <button class="px-3 focus:outline-none">
+    <button 
+      @click.stop="$emit('select-menu', 'main')" 
+      class="px-3 focus:outline-none"
+    >
       <BaseIcon name="arrowLeft" />
     </button>
     <span class="py-3">Appearance</span>
@@ -21,11 +24,13 @@
 
 
 <script>
+import BaseIcon from './BaseIcon.vue'
 import DropdownSettingsListItem from './DropdownSettingsListItem.vue';
 
 export default {
   components: {
-    DropdownSettingsListItem
+    BaseIcon,
+    DropdownSettingsListItem,
   },
 
   data() {
