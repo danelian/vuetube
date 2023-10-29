@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import SidebarCompactNavItem from './SidebarCompactNavItem.vue'
+import SidebarCompactNavItem from './SidebarCompactNavItem.vue';
 
 export default {
   components: {
