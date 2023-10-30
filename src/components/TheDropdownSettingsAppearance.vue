@@ -1,7 +1,7 @@
 <template>
   <DropdownSettingsHeader 
     title="Appearance" 
-    @back="$emit('select-menu', 'main')" 
+    @back="$emit('close')" 
   />
   <section class="py-2">
     <div class="text-gray-500 text-xs p-3">Setting applies to this browser only</div>
@@ -29,7 +29,7 @@ export default {
   },
 
   props: ['selectedOptions'],
-  emits: ['select-menu', 'select-option'],
+  emits: ['close', 'select-option'],
 
   data() {
     return {
