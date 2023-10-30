@@ -7,11 +7,11 @@
     <div class="text-gray-500 text-xs p-3">Setting applies to this browser only</div>
     <ul class="max-h-96 overflow-auto">
       <DropdownSettingsListItem
-        v-for="languageName, languageId in languages"
+        v-for="(languageName, languageId) in languages"
         :key="languageId"
         :label="languageName"
-        :active="languageId === selectedOptions.languageId"
-        @click="selectOption(languageId)"
+        :active="languageId === selectedOptions.language.id"
+        @click="selectOption({ id: languageId, text: languageName })"
       />
     </ul>
   </section>
@@ -38,8 +38,8 @@ export default {
   },
 
   methods: {
-    selectOption (languageId) {
-      this.$emit('select-option', { name: 'languageId', value: languageId })
+    selectOption (language) {
+      this.$emit('select-option', { name: 'language', value: language })
     }
   }
 }
