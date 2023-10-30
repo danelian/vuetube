@@ -20,9 +20,11 @@
         tabindex="-1"
         :class="dropdownClasses"
       >
-        <component 
-          :is="menu" 
+      <component
+          :is="menu"
           @select-menu="showSelectedMenu"
+          @select-option="selectOption"
+          :selected-options="selectedOptions"
         />
       </div>
     </transition>
@@ -53,6 +55,12 @@ export default {
     return {
       isOpen: false,
       selectedMenu: 'main',
+      selectedOptions: {
+        themeId: 0,
+        languageId: 0,
+        locationId: 0,
+        restrictedMode: false
+      },
       dropdownClasses: [
         'absolute', 
         'top-9', 
@@ -100,6 +108,10 @@ export default {
       this.selectedMenu = selectedMenu
 
       this.$refs.dropdown.focus()
+    },
+
+    selectOption(option) {
+      this.selectedOptions[option.name] = option.value
     },
 
     toggle() {

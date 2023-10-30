@@ -7,11 +7,11 @@
     <div class="text-gray-500 text-xs p-3">Setting applies to this browser only</div>
     <ul class="max-h-96 overflow-auto">
       <DropdownSettingsListItem
-        v-for="location, locationId in locations"
+        v-for="locationName, locationId in locations"
         :key="locationId"
-        :label="location"
-        :active="locationId === selectedLocationId"
-        @click="selectedLocationId = locationId"
+        :label="locationName"
+        :active="locationId === selectedOptions.locationId"
+        @click="selectOption(locationId)"
       />
     </ul>
   </section>
@@ -28,14 +28,19 @@ export default {
     DropdownSettingsListItem,
   },
 
-  emits: ['select-menu'],
+  props: ['selectedOptions'],
+  emits: ['select-menu', 'select-option'],
 
   data() {
     return {
-      selectedLocationId: 0,
       locations: ['Russia', 'Armenia', 'Ukraine', 'USA', 'France', 'Germany', 'Italia'],
     }
   },
 
+  methods: {
+    selectOption (locationId) {
+      this.$emit('select-option', { name: 'locationId', value: locationId })
+    }
+  }
 }
 </script>
