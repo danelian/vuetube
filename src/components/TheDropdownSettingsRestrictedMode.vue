@@ -14,22 +14,26 @@
         @input="selectOption"
       />
     </div>
+    <template v-if="selectedOptions.restrictedMode.enabled">
+      <p>
+        Restricted Mode lock prevents others from changing the Restricted Mode settings on this browser.
+      </p>
+      <p>
+        Lock Restricted Mode on this browser
+      </p>
+    </template>
   </section>
 </template>
 
 
 <script>
-import DropdownSettingsHeader from './DropdownSettingsHeader.vue'
+import dropdownSubmenu from '../mixins/dropdownSubmenu'
 
 export default {
-  components: {
-    DropdownSettingsHeader,
-  },
-
-  props: ['selectedOptions'],
-  emits: ['close', 'select-option'],
+  mixins: [dropdownSubmenu],
 
   methods: {
+    optionName: 'restricted_mode',
     selectOption ($event) {
       const enabled = $event.target.checked
       const value = { enabled, text: enabled ? 'On' : 'Off' }
