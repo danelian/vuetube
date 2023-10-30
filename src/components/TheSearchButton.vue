@@ -20,7 +20,7 @@ export default {
 
   data() {
     return {
-      classes [
+      classes: [
         'h-full', 
         'focus:outline-none', 
         'flex', 
