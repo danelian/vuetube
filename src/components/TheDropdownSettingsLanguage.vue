@@ -5,7 +5,7 @@
   />
   <section class="py-2">
     <div class="text-gray-500 text-xs p-3">Setting applies to this browser only</div>
-    <ul>
+    <ul class="max-h-96 overflow-auto">
       <DropdownSettingsListItem
         v-for="language, languageId in languages"
         :key="languageId"

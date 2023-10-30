@@ -1,10 +1,11 @@
 <template>
   <div class="flex items-start mt-3">
-    <img
+    <!-- <img
       :src="`/channel-avatar-${index}.jpg`"
       class="mr-3 rounded-full w-9 h-9"
       alt=""
-    />
+    /> -->
+    <img src="/channel-avatar-1.jpg" class="mr-3 rounded-full w-9 h-9" alt="">
     <div class="text-sm">
       <span class="font-semibold text-gray-800">Video title {{ index }}</span>
       <div class="mt-1 flex">

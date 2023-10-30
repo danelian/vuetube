@@ -5,7 +5,7 @@
   />
   <section class="py-2">
     <div class="text-gray-500 text-xs p-3">Setting applies to this browser only</div>
-    <ul>
+    <ul class="max-h-96 overflow-auto">
       <DropdownSettingsListItem
         v-for="location, locationId in locations"
         :key="locationId"
@@ -33,7 +33,7 @@ export default {
   data() {
     return {
       selectedLocationId: 0,
-      locations: ['Russia', 'Armenia', 'Ukraine', 'USA', 'France'],
+      locations: ['Russia', 'Armenia', 'Ukraine', 'USA', 'France', 'Germany', 'Italia'],
     }
   },
 
