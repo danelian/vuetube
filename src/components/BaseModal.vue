@@ -1,10 +1,5 @@
 <template>
-  <div 
-    class="fixed inset-0 z-10 focus:outline-none" 
-    tabindex="-1"
-    
-    @keydown.esc="close"
-  >
+  <div class="fixed inset-0 z-30 focus:outline-none flex justify-center items-start" tabindex="-1" @keydown.esc="close">
     <transition 
       appear
       enter-active-class="ease-out duration-200"
@@ -16,7 +11,7 @@
     >
       <BaseModalOverlay v-if="isOpen" @click="close" />
     </transition>
-    <div v-if="isOpen" class="relative bg-white max-w-sm mx-auto my-8">
+    <div v-if="isOpen" class="relative bg-white max-w-sm m-8">
       <div class="p-2 text-right">
         <BaseModalButtonClose @click="close" />
       </div>
@@ -47,6 +42,15 @@ export default {
   data () {
     return {
       isOpen: true,
+      // classes: [
+      //   'fixed',
+      //   'inset-0',
+      //   'z-30',
+      //   'focus:outline-none',
+      //   'flex',
+      //   'justify-center',
+      //   'items-start'
+      // ]
     }
   },
 
@@ -59,6 +63,12 @@ export default {
       this.isOpen = false
       
       setTimeout(() => this.$emit('close'), 100)
+    }
+  },
+
+  computed: {
+    classes () {
+      return ['fixed inset-0 z-10 focus:outline-none']
     }
   }
 }
