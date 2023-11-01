@@ -33,7 +33,12 @@ export default {
   data () {
     return {
       isShown: false,
-      classes: [
+    }
+  },
+
+  computed: {
+    classes () {
+      return [
         'bg-gray-600',
         'bg-opacity-60',
         'rounded-sm',
