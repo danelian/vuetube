@@ -24,9 +24,13 @@ export default {
     TheSearchButton,
   },
 
+  props: ['searchQuery'],
+
+  emits: ['update-search-query'],
+
   data() {
     return {
-      query: '',
+      query: this.searchQuery,
       isSearchResultsShown: false,
       keywords: [
         'new york giants',
@@ -61,6 +65,12 @@ export default {
     trimmedQuery() {
       return this.query.replace(/\s+/g, ' ').trim()
     },
+  },
+
+  watch: {
+    query (query) {
+      this.$emit('update-search-query', query)
+    }
   },
 
   methods: {
