@@ -10,10 +10,13 @@
         @keyup.down="handleNextSearchResult"
         @keydown.up.prevent
       />
-      <TheSearchResult 
+      <TheSearchResults 
         v-show="isSearchResultsShown" 
         :results="results"
         :active-result-id="activeSearchResultId" 
+        @search-result-mouseenter="activeSearchResultId = $event"
+        @search-result-mouseleave="activeSearchResultId = null"
+        @search-result-click="selectSearchResult"
       />
     </div>
     <TheSearchButton />
@@ -22,13 +25,13 @@
 
 <script>
 import TheSearchInput from './TheSearchInput.vue'
-import TheSearchResult from './TheSearchResult.vue'
+import TheSearchResults from './TheSearchResults.vue'
 import TheSearchButton from './TheSearchButton.vue'
 
 export default {
   components: {
     TheSearchInput,
-    TheSearchResult,
+    TheSearchResults,
     TheSearchButton,
   },
 
@@ -74,7 +77,19 @@ export default {
     }
   },
 
+  mounted () {
+    document.addEventListener('click', this.handleClick)
+  },
+
+  beforeIUnmount () {
+    document.removeEventListener('click', this.handleClick)
+  },
+
   methods: {
+    handleClick () {
+      this.toggleSearchResults(false)
+    },
+
     updateSearchResults () {
       this.activeSearchResultId = null,
       this.activeQuery = this.query
@@ -138,6 +153,12 @@ export default {
       this.query = hasActiveSearchResult 
         ? this.results[this.activeSearchResultId]
         : this.activeQuery
+    },
+
+    selectSearchResult (searchResultId) {
+      this.query = this.results[searchResultId]
+      this.updateSearchResults()
+      this.toggleSearchResults(false)
     }
   }
 

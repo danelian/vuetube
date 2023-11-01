@@ -2,9 +2,12 @@
   <div :class="classes">
     <ul>
       <li 
-        v-for="text, id in results"
+        v-for="(text, id) in results"
         :key="text"
         :class="itemClasses(id)"
+        @mouseenter="$emit('search-result-mouseenter', id)"
+        @mouseleave="$emit('search-result-mouseleave')"
+        @click.stop="$emit('search-result-click', id)"
       >
         {{ text }}
       </li>
@@ -51,7 +54,7 @@ export default {
   computed: {
     itemClasses () {
       return resultId => [
-        resultId == this.activeResultId ? 'bg-gray-100' : 'hover:bg-gray-100', 
+        resultId == this.activeResultId ? 'bg-gray-100' : 'bg-transparent', 
         'text-black', 
         'px-3', 
         'py-1', 
