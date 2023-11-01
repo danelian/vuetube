@@ -11,24 +11,11 @@
         <LogoMain />
       </div>
     </div>
-    <TheSearchMobile 
-      v-if="isMobileSearchShown" 
+    <TheSearchWrapper 
+      v-show="isSearchShown"
+      :is-small-screen="isSmallScreen"
       @close="closeMobileSearch" 
-    >
-      <TheSearch 
-        :search-query="searchQuery"
-        @update-search-query="searchQuery = $event" 
-      />
-    </TheSearchMobile>
-
-    <TheSearchMain 
-      v-else
-    >
-      <TheSearch 
-        :search-query="searchQuery"
-        @update-search-query="searchQuery = $event" 
-      />
-    </TheSearchMain>
+    />
     <div
       :class="['flex', 'items-center', 'justify-end', 'lg:w-1/4', 'sm:space-x-3', 'p-2', 'sm:px-4', isMobileSearchShown ? 'opacity-0' : 'opacity-100']"
     >
@@ -57,9 +44,7 @@ import BaseIcon from './BaseIcon.vue'
 import BaseTooltip from './BaseTooltip.vue'
 import LogoMain from './LogoMain.vue'
 import ButtonLogin from './ButtonLogin.vue'
-import TheSearch from './TheSearch.vue'
-import TheSearchMain from './TheSearchMain.vue'
-import TheSearchMobile from './TheSearchMobile.vue'
+import TheSearchWrapper from './TheSearchWrapper.vue'
 import TheDropdownApps from './TheDropdownApps.vue'
 import TheDropdownSettings from './TheDropdownSettings.vue'
 
@@ -69,9 +54,7 @@ export default {
     BaseTooltip,
     LogoMain,
     ButtonLogin,
-    TheSearch,
-    TheSearchMain,
-    TheSearchMobile,
+    TheSearchWrapper,
     TheDropdownApps,
     TheDropdownSettings
   },
@@ -82,7 +65,6 @@ export default {
 
   data () {
     return {
-      searchQuery: '',
       isSmallScreen: false,
       isMobileSearchActive: false,
       classes: [
@@ -97,6 +79,10 @@ export default {
   },
 
   computed: {
+    isSearchShown () {
+      return this.isMobileSearchShown || !this.isSmallScreen
+    },
+
     isMobileSearchShown () {
       return this.isSmallScreen && this.isMobileSearchActive
     }
